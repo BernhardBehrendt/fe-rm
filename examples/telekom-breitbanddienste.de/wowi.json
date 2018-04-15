@@ -1,0 +1,139 @@
+{
+
+  "https://cobra-aw.columbustuadev.de/PostForms/webshopform.php": {
+    "root": true,
+    "click": "input[type='submit']",
+    "waitFor": [[5000]]
+  },
+
+
+  "https://cobra-aw.columbustuadev.de/tarifuebersicht-kabel": {
+    "click": "#sg-133 > div > div.cobra-product-footer > p > button",
+    "waitFor": [[1000]]
+  },
+
+  "https://cobra-aw.columbustuadev.de/breitband/produktkonfiguration/": [
+    {
+      "click": "label[data-test-action=\"select-vlz-24\"]",
+      "waitFor": [[1000]]
+    },
+    {
+      "click": "button[data-test-action=\"continue-to-options\"]",
+      "waitFor": [[1000]]
+    },
+
+    {
+      "click": [
+        [
+          "[data-test-action=\"Flat International 1\"]"
+        ],
+        [
+          "[data-test-action=\"Flat International 2\"]"
+        ],
+        [
+          "button[data-test-action=\"continue-to-hw\"]"
+        ]
+      ],
+      "waitFor": [[1000]]
+    },
+
+    {
+      "click": [
+        [
+          "label[data-test-action=\"select-hw-5001\"]"
+        ]
+      ],
+      "waitFor": [[1000]]
+    },
+    {
+      "click":"button[data-test-action=\"submit\"]",
+      "waitFor": [[2000]]
+    }
+  ],
+
+  "https://cobra-aw.columbustuadev.de/bestellen/":[
+    {
+      "click": "[data-test-action=\"continue-to-contract-data\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "click":[
+        ["[data-test-action=\"customer--salutation-2-via-label\"]"]
+
+      ],
+      "type":[
+        ["[name=\"customer--first-name\"]","Bernhard"],
+        ["[name=\"customer--last-name\"]","Behrendt"],
+        ["[name=\"customer--birthday.dd\"]","16"],
+        ["[name=\"customer--birthday.mm\"]","10"],
+        ["[name=\"customer--birthday.yyyy\"]","1984"],
+        ["[name=\"customer--landline-phone-number--area-code\"]","069"],
+        ["[name=\"customer--landline-phone-number-cli\"]","4624232424"],
+        ["[name=\"customer--email\"]","bernhard.bezdek@aoe.com"],
+        ["[name=\"customer--email-repeat\"]","bernhard.bezdek@aoe.com"]
+      ]
+    },
+    {
+      "click":"[data-test-action=\"continue-to-line-and-internet-details\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "click":"[data-test=\"products--dsl-order--current-provider\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "click":"[data-test=\"products--dsl-order--current-provider-value-1\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "type":[
+        ["[name=\"products--dsl-order--current-line-owner--line-phone-no--area-code\"]","06661"],
+        ["[name=\"products--dsl-order--current-line-owner--line-phone-no--cli\"]","532454"]
+      ],
+      "click":"[data-test-action=\"products--dsl-order--data-storing-option-0-via-label\"]"
+    },
+    {
+      "click":"[data-test-action=\"products--dsl-order--media-wall-outlet-available-0-via-label\"]"
+    },
+    {
+      "click": "[data-test-action=\"products--dsl-order--building-details--building-type-0-via-label\"]",
+      "type": [
+        [
+          "[name=\"products--dsl-order--building-details--floor\"]",
+          "1"
+        ]
+      ]
+    },
+    {
+      "click": "[data-test-action=\"continue-to-payment-details\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "type":[
+        ["[name=\"bank-account--iban\"]","DE92530513960000525042"]
+      ],
+      "click":"[data-test-action=\"sepa-mandate-check-via-label\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "click":"[data-test-action=\"continue-to-terms-and-conditions\"]",
+      "waitFor":[[1500]]
+    },
+    {
+      "click":"[data-test-action=\"terms-and-conditions-check-via-label\"]"
+    },
+    {
+      "click":"[data-test-action=\"services-privacy-instruction-check\"]"
+    },
+    {
+      "click":"[data-test-action=\"right-of-recission-check\"]"
+    },
+    {
+      "click":"[data-test-action=\"credit-rating-check-via-label\"]"
+    },
+    {
+      "click":"[data-test-action=\"continue-to-order-confirmation\"]",
+      "waitFor":[[9999999]]
+    }
+  ]
+}

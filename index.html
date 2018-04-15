@@ -1,0 +1,441 @@
+<html>
+<head>
+    <link rel="stylesheet" href="node_modules/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/css/theme/blood.css">
+    <link rel="stylesheet" href="node_modules/highlightjs/styles/ocean.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="node_modules/headjs/dist/1.0.0/head.min.js"></script>
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+
+        <section id="welcome">
+            <section id="topic">
+                <img class="logo-puppeteer" src="images/puppeteer-logo.png">
+                <br>
+                <span class="headline">a Node library which provides an API to control Chrome<br></span>
+                <span class="short-description">and how we used it to automise UI-interactions<br></span>
+            </section>
+
+            <section id="me">
+                <span>Bernhard Behrendt // developer at </span>
+                <img class="logo-aoe" src="images/AOE-logo.svg"><br>
+            </section>
+
+            <section id="languages">
+
+                <span>
+                    programming in...
+                </span>
+                <br>
+
+                <img src="images/javascript-logo.svg" class="logo-javascript">
+                <img src="images/typescript-logo.svg" class="logo-typescript">
+            </section>
+
+            <section id="frontend-stack">
+
+                <span>
+                  and doing my work with...
+                </span>
+                <br>
+
+                <img src="images/angular-logo.svg" class="logo-angular">
+                <img src="images/node-logo.svg" class="logo-node">
+
+
+            </section>
+
+            <section id="team">
+                <span>in a distributed scrum team of eight people</span>
+                <br/>
+                <img class="germany-map" src="images/germany-outline.svg">
+            </section>
+
+            <section id="customer">
+                <img class="logo-telekom" src="images/telekom-logo.svg">
+            </section>
+
+            <section id="project">
+                <span>which are two shop systems</span>
+                <br/>
+                <br/>
+
+                <ol>
+                    <li>an internal one // accessibility driven</li>
+                    <li>a public one &nbsp;&nbsp;&nbsp;&nbsp;// marketing driven</li>
+                </ol>
+
+            </section>
+        </section>
+
+        <section id="puppeteerIntroduction">
+            <section>
+                <img src="images/puppeteer-logo.png" class="logo-puppeteer">
+                <br/>
+                <span>Puppeteer</span>
+            </section>
+
+            <section>
+                <pre class="shell">
+                    <code>
+
+                        npm install puppeteer
+
+                    </code>
+                </pre>
+            </section>
+
+            <section id="basicExampleA" data-transition="none">
+               <pre class="javascript">
+                   <code>
+    const puppeteer = require('puppeteer');
+
+
+
+
+
+
+
+
+
+
+                   </code>
+               </pre>
+            </section>
+
+            <section id="basicExampleB" data-transition="none">
+               <pre class="javascript">
+                   <code>
+    const puppeteer = require('puppeteer');
+
+    (async () => {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+
+
+
+
+        await browser.close();
+    })();
+                   </code>
+               </pre>
+            </section>
+
+            <section id="basicExampleC" data-transition="none">
+               <pre class="javascript">
+                   <code>
+    const puppeteer = require('puppeteer');
+
+    (async () => {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+
+        await page.goto('https://aoe.com');
+        await page.screenshot({path: 'aoe.png'});
+
+        await browser.close();
+    })();
+                   </code>
+               </pre>
+            </section>
+
+            <section id="basicExampleResult">
+                <img class="screenshot-aoe" src="examples/puppeteer/aoe.png">
+            </section>
+
+            <section>
+                <img class="copy-selector" src="images/copy-selector.png">
+            </section>
+
+            <section id="interactionExample">
+                <pre class="javascript">
+                    <code>
+const puppeteer = require('puppeteer');
+
+const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
+const SELECTOR_GOOGLE_SEARCH_RESULT = '#rso > div > div > div:nth-child(1) > div > div > h3 > a';
+const SELECTOR_AOE_OSS_LINK = '#page-header > div.header-menus > div:nth-child(1) > ul > li:nth-child(2) > a';
+
+(async () => {
+    const browser = await puppeteer.launch({headless:false});
+
+    const page = await browser.newPage();
+
+    page.setViewport({
+        width:1024,
+        height:768
+    });
+
+    await page.goto('https://google.com');
+    await page.type(SELECTOR_GOOGLE_SEARCH_INPUT, 'web companies in wiesbaden');
+    await page.waitFor(5000);
+
+    await page.type(SELECTOR_GOOGLE_SEARCH_INPUT, '\n');
+    await page.waitFor(5000);
+
+    await page.click(SELECTOR_GOOGLE_SEARCH_RESULT);
+
+    await page.waitFor(5000);
+    await page.click(SELECTOR_AOE_OSS_LINK);
+
+    await page.waitFor(500000);
+
+    await browser.close();
+})();
+                    </code>
+                </pre>
+            </section>
+
+            <section id="evaluationExample">
+                <pre class="javascript">
+                    <code>
+const puppeteer = require('puppeteer');
+
+const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
+
+(async () => {
+    const browser = await puppeteer.launch({headless: false});
+
+    const page = await browser.newPage();
+
+    page.setViewport({
+        width: 1024,
+        height: 768
+    });
+
+    await page.goto('https://google.com');
+    await page.type(SELECTOR_GOOGLE_SEARCH_INPUT, 'web companies in wiesbaden');
+    await page.waitFor(5000);
+
+    await page.type(SELECTOR_GOOGLE_SEARCH_INPUT, '\n');
+    await page.waitFor(5000);
+
+    let data = await page.evaluate(() => {
+        let data = {results:[]};
+
+        document.body
+            .querySelectorAll('h3.r')
+            .forEach((resultItem) => {
+                data.results.push(resultItem.textContent);
+            });
+
+        return data
+
+    }, );
+
+
+    console.log(data);
+
+    await page.waitFor(500000);
+
+    await browser.close();
+})();
+                    </code>
+                </pre>
+            </section>
+
+            <section id="evaluationExampleResult">
+                <pre class="json">
+                    <code>
+{ results:
+   [ 'AOE: Agile Softwareentwicklung | IT & Technologie Dienstleister | AOE',
+     '//SEIBERT/MEDIA, Wiesbaden - Agile Software-Entwicklung, Atlassian ...',
+     'Scholz & Volkmer',
+     '– 3deluxe - Transdisciplinary Design –',
+     'vitronic.de - VITRONIC - the machine vision people',
+     'AbbVie: Startseite | Deutschland',
+     'AOE – the open web company | LinkedIn',
+     'Chemical Company and Manufacturer - The WeylChem Group',
+     'Sweco.de | Sweco.de',
+     'Braun + Company' ] }
+                    </code>
+                </pre>
+
+            </section>
+
+        </section>
+
+        <section id="projectIntroduction">
+            Our work
+
+            - Overall architecture one overview
+            - - - Microservices / SPA / TYPO3 /
+
+            - - - Workflows and form processes (images images images) one input ... zoom out one form... zooming out..
+            one process.. zooming out iterations...
+            - time consuming testing in the UI
+            - Plugins are not really simulating user interaction and are often faulty
+
+
+            - - Need for different user interaction automisation
+            - - - Why not selenium
+            - - - Fetchbot
+            - - - As close as possible to my bahavior as a developer using a browser
+            - - - - Devtools user
+            - - - - indentation to the daily used browser
+
+
+        </section>
+
+        <section id="fetchbotIntroduction">
+
+            <section>
+                <img src="images/fetchbot-logo.png" class="logo-fetchbot">
+                <br/>
+                Puppeteer Fetchbot
+                <pre class="shell">
+                    <code>
+                        npm install fetchbot
+                    </code>
+                </pre>
+            </section>
+
+            <section class="json" data-transition="none">
+                <pre>
+                    <code>
+                        URL->ACTION('SELECTOR')
+                    </code>
+                </pre>
+            </section>
+
+            <section class="json" data-transition="none">
+                <span>In your project as a library</span>
+
+
+            </section>
+
+            <section class="json" data-transition="none">
+                <img src="images/cli-help-page.png" class="cli-help-page">
+            </section>
+
+            <section id="basicFetchbotExampleA" class="json" data-transition="none">
+                <pre>
+                    <code>
+{
+  "http://google.com":{
+    "root":true,
+
+
+
+
+
+
+
+
+
+
+  }
+}
+                    </code>
+                </pre>
+            </section>
+
+            <section id="basicFetchbotExampleB" class="json" data-transition="none">
+                <pre>
+                    <code>
+{
+  "http://google.com":{
+    "root":true,
+
+    "type":[["input", "web companies in wiesbaden\n"]],
+    "waitFor":[[3000]],
+
+
+
+
+
+
+
+  }
+}
+                    </code>
+                </pre>
+            </section>
+
+
+            <section id="basicFetchbotExampleC" class="json" data-transition="none">
+                <pre>
+                    <code>
+{
+  "http://google.com":{
+    "root":true,
+
+    "type":[["input", "web companies in wiesbaden\n"]],
+    "waitFor":[[3000]],
+
+    "fetch":{
+      "h3.r as headlines":[],
+      "#rso > div > div > div > div > div > h3 > a as links":{
+        "attr": "href",
+        "type": []
+      }
+    }
+  }
+}
+                    </code>
+                </pre>
+            </section>
+<section id="basicFetchbotCliUsage">
+    <pre class="shell">
+        <code>
+fetchbot --job fetch.json --agent "LONG_LONG_USER_AGENT_STRING"
+        </code>
+    </pre>
+</section>
+            <section id="basicFetchbotResult">
+                <pre class="json">
+                    <code>
+{
+    "headlines": [
+        "AOE: Agile Softwareentwicklung | IT & Technologie Dienstleister | AOE",
+        "//SEIBERT/MEDIA, Wiesbaden - Agile Software-Entwicklung, Atlassian ...",
+        "Scholz & Volkmer",
+        "[...]"
+    ],
+    "links": [
+        "https://www.aoe.com/de/home.html",
+        "https://www.seibert-media.net/",
+        "https://www.s-v.de/",
+        "[...]"
+    ]
+}
+                    </code>
+                </pre>
+            </section>
+
+        </section>
+
+        <section id="outro">
+            outro
+            (outro) I Believe that
+        </section>
+
+        <section id="finish">
+            Thank you
+        </section>
+
+        <section id="legal-stuff">
+            <ul>
+                <li>Icon made by SimpleIcon from www.flaticon.com</li>
+            </ul>
+        </section>
+    </div>
+</div>
+<script src="node_modules/reveal.js/js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        slideNumber: true,
+        dependencies: [
+            {
+                src: 'node_modules/highlightjs/highlight.pack.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

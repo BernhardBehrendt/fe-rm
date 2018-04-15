@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800,900');
+
+body {
+  background-color: #0b0024;
+}
+
+.reveal {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.reveal section img {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.left {
+  text-align: left;
+}
+
+ul {
+}
+
+ul.small {
+  font-size: 26px;
+}
+
+span.headline {
+  padding-top: 22px;
+
+  font-size: 32px;
+}
+
+span.short-description {
+  font-size: 30px;
+}
+
+span.intro-me-at-label {
+
+}
+
+.logo-aoe {
+  transform: translateY(40px);
+  width: 200px;
+}
+
+.logo-puppeteer {
+  width: 160px;
+}
+
+.logo-fetchbot {
+  width: 160px;
+  background-color: #fff !important;
+  border: solid 2px #fff !important;
+  border-radius: 8px;
+}
+
+.logo-javascript {
+  height: 200px;
+  transform: translateX(0px) translateY(20px);
+}
+
+.logo-typescript {
+  height: 200px;
+  transform: translateX(20px) translateY(120px);
+}
+
+.logo-node {
+  height: 154px;
+  background-color: #418540 !important;
+  border: solid 2px #418540 !important;
+  border-radius: 8px;
+  transform: translateX(0) translateY(75px);
+}
+
+.logo-angular {
+  height: 210px;
+}
+
+.logo-telekom {
+  height: 140px;
+  transform: translateX(0) translateY(50px);
+}
+
+.germany-map {
+  transform: translateY(-10px);
+  height: 600px;
+}
+
+.screenshot-aoe {
+  width: 500px;
+}
+
+.cli-help-page {
+  height: 500px;
+}

@@ -1,0 +1,14 @@
+{
+  "http://google.com":{
+    "root":true,
+    "type":[["input", "web companies in wiesbaden\n"]],
+    "waitFor":[[3000]],
+    "fetch":{
+      "h3.r as headlines":[],
+      "#rso > div > div > div > div > div > h3 > a as links":{
+        "attr": "href",
+        "type": []
+      }
+    }
+  }
+}

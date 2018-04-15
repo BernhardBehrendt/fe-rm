@@ -1,0 +1,13 @@
+{
+  "name": "fe-rm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Bernhard Behrendt <bernhard.bezdek@googlemail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fetchbot": "^1.4.4",
+    "headjs": "^1.0.3",
+    "highlightjs": "^9.10.0",
+    "reveal.js": "^3.6.0"
+  }
+}
