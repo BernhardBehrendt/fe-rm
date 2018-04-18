@@ -354,7 +354,6 @@ const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
                 </pre>
             </section>
 
-
             <section id="basicFetchbotExampleC" class="json" data-transition="none">
                 <pre>
                     <code>
@@ -377,13 +376,15 @@ const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
                     </code>
                 </pre>
             </section>
-<section id="basicFetchbotCliUsage">
+
+            <section id="basicFetchbotCliUsage">
     <pre class="shell">
         <code>
 fetchbot --job fetch.json --agent "LONG_LONG_USER_AGENT_STRING"
         </code>
     </pre>
-</section>
+            </section>
+
             <section id="basicFetchbotResult">
                 <pre class="json">
                     <code>
@@ -405,6 +406,19 @@ fetchbot --job fetch.json --agent "LONG_LONG_USER_AGENT_STRING"
                 </pre>
             </section>
 
+            <section id="processFlow" data-state="processMap">
+                <img class="processMap" src="images/process-complete.png">
+            </section>
+
+            <section id="speedComparisonManual" data-background-video="multimedia/ManualBooking.mov"
+                     data-background-size="contain" data-background-video-muted>
+                <span>Duration:</span><span class="timer" data-until="2">2:00:00</span>
+            </section>
+
+            <section id="speedComparisonAutomised" data-background-video="multimedia/AutomaticBooking.mov"
+                     data-background-size="contain" data-background-video-muted>
+                <span>Duration:</span><span class="timer" data-until="1">1:00:00</span>
+            </section>
         </section>
 
         <section id="outro">
@@ -424,6 +438,8 @@ fetchbot --job fetch.json --agent "LONG_LONG_USER_AGENT_STRING"
     </div>
 </div>
 <script src="node_modules/reveal.js/js/reveal.js"></script>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="js/main.js"></script>
 <script>
     Reveal.initialize({
         slideNumber: true,

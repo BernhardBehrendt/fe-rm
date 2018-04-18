@@ -77,4 +77,7 @@ span.short-description {
 .cli-help-page {
   height: 500px; }
 
+img.processMap {
+  transition: transform 2.5s ease-in-out;
+}
 /*# sourceMappingURL=main.css.map */
