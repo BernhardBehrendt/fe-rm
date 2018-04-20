@@ -17,7 +17,7 @@
                 <img class="logo-puppeteer" src="images/puppeteer-logo.png">
                 <br>
                 <span class="headline">a Node library which provides an API to control Chrome<br></span>
-                <span class="short-description">and how we used it to automise UI-interactions<br></span>
+                <span class="short-description">and how we used it to automate UI-interactions<br></span>
             </section>
 
             <section id="me">
@@ -173,7 +173,7 @@ const SELECTOR_AOE_OSS_LINK = '#page-header > div.header-menus > div:nth-child(1
     await page.waitFor(5000);
 
     await page.type(SELECTOR_GOOGLE_SEARCH_INPUT, '\n');
-    await page.waitFor(5000);
+    await page.waitForSelector(SELECTOR_GOOGLE_SEARCH_RESULT);
 
     await page.click(SELECTOR_GOOGLE_SEARCH_RESULT);
 
@@ -258,33 +258,85 @@ const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
         </section>
 
         <section id="projectIntroduction">
-            Our work
 
-            - Overall architecture one overview
-            - - - Microservices / SPA / TYPO3 /
+            <section>
+                Project Flyover
+            </section>
 
-            - - - Workflows and form processes (images images images) one input ... zoom out one form... zooming out..
-            one process.. zooming out iterations...
-            - time consuming testing in the UI
-            - Plugins are not really simulating user interaction and are often faulty
+            <section id="processFlow" data-state="processMap">
+                <img class="processMap" src="images/process-complete.png">
+            </section>
+            <section>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Text inputs</td>
+                        <td>43</td>
+                    </tr>
+                    <tr>
+                        <td>Selects (2 clicks each)</td>
+                        <td>2-4</td>
+                    </tr>
+
+                    <tr>
+                        <td>Checkboxes</td>
+                        <td>12</td>
+                    </tr>
 
 
-            - - Need for different user interaction automisation
-            - - - Why not selenium
-            - - - Fetchbot
-            - - - As close as possible to my bahavior as a developer using a browser
-            - - - - Devtools user
-            - - - - indentation to the daily used browser
+                    <tr>
+                        <td>Radio Button Sets</td>
+                        <td>10</td>
+                    </tr>
 
+                    <tr>
+                        <td>Datepicker</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+
+                        <td>Buttons</td>
+                        <td>11</td>
+                    </tr>
+                    <tr>
+
+                        <td>Total</td>
+                        <td>
+                            <hr/>
+                            81 user interactions
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <img src="images/boring.gif">
+            </section>
 
         </section>
 
         <section id="fetchbotIntroduction">
 
             <section>
+                <img src="images/puppeteer-logo.png" class="logo-puppeteer">
+                <br/>
+                But... who's playing with that puppet...
+            </section>
+
+            <section>
                 <img src="images/fetchbot-logo.png" class="logo-fetchbot">
                 <br/>
-                Puppeteer Fetchbot
+                ...Fetchbot does...
+            </section>
+
+            <section id="installFetchbot">
                 <pre class="shell">
                     <code>
                         npm install fetchbot
@@ -292,22 +344,12 @@ const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
                 </pre>
             </section>
 
-            <section class="json" data-transition="none">
+            <section id="fetchbotBasicSyntax" data-transition="none">
                 <pre>
                     <code>
-                        URL->ACTION('SELECTOR')
+                        URL::ACTION::SELECTOR
                     </code>
                 </pre>
-            </section>
-
-            <section class="json" data-transition="none">
-                <span>In your project as a library</span>
-
-
-            </section>
-
-            <section class="json" data-transition="none">
-                <img src="images/cli-help-page.png" class="cli-help-page">
             </section>
 
             <section id="basicFetchbotExampleA" class="json" data-transition="none">
@@ -377,14 +419,6 @@ const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
                 </pre>
             </section>
 
-            <section id="basicFetchbotCliUsage">
-    <pre class="shell">
-        <code>
-fetchbot --job fetch.json --agent "LONG_LONG_USER_AGENT_STRING"
-        </code>
-    </pre>
-            </section>
-
             <section id="basicFetchbotResult">
                 <pre class="json">
                     <code>
@@ -406,33 +440,203 @@ fetchbot --job fetch.json --agent "LONG_LONG_USER_AGENT_STRING"
                 </pre>
             </section>
 
-            <section id="processFlow" data-state="processMap">
-                <img class="processMap" src="images/process-complete.png">
+            <section id="basicFetchbotUsage">
+                <pre class="shell">
+                    <code>
+fetchbot --job fetch.json --agent "LONG_LONG_USER_AGENT_STRING"
+                    </code>
+                </pre>
+
+                <pre class="javascript">
+                    <code>
+const FetchBot = require('fetchbot');
+
+(async () => {
+    const fetchbot = new FetchBot('');
+    let fetchBotData = await fetchbot.runAndExit('./fetch.json');
+
+    console.log(fetchBotData);
+})();
+                    </code>
+                </pre>
+            </section>
+
+            <section id="cliManPage" data-transition="none">
+                <img src="images/cli-help-page.png" class="cli-help-page">
+            </section>
+
+            <section id="optionsViaCode" data-transition="none">
+                <pre class="javascript">
+                    <code>
+const fetchbot = new FetchBot('', {
+    "attached": true,
+    "slowmo": 250,
+    "width": 1280,
+    "height": 1024,
+    "trust": true
+});
+                    </code>
+                </pre>
+            </section>
+
+            <section id="dataTypes">
+                <span>Data Types</span>
+                <ul>
+                    <li>Boolean</li>
+                    <li>Number</li>
+                    <li>String</li>
+                    <li>Array of String(s)</li>
+                    <li>Array of Numbers(s)</li>
+                    <li>Objects containing an additional attribute matching</li>
+                </ul>
+            </section>
+
+            <section id="dataTypeConversionExample">
+                <pre class="javascript">
+                    <code>
+{
+    "fetch": {
+        "#myFirstSelector AS exists": false,
+        "#mySecondSelector AS amount": 0,
+        "#myThirdSelector AS description": "",
+        "#myFouthSelector AS pressReleases": [],
+        "#myFifthSelector AS likes": null,
+        "#linkTargetResolved as attributeIsWorking": {
+              "attr": "align",
+              "type": ""
+            },
+            "#linkTargetResolved as attributeAlignExists": {
+              "attr": "align",
+              "type": false
+            },
+            "#linkTargetResolved as dataTestIsWorking": {
+              "attr": "data-test",
+              "type": ""
+            },
+            "h2.xyz as collectedIds": {
+              "attr": "id",
+              "type": null
+            },
+            "h2.xyz as collectedClassNames": {
+              "attr": "class",
+              "type": []
+            }
+    }
+}
+                    </code>
+                </pre>
+            </section>
+
+            <section id="dataTypeConversionExampleResult">
+                <pre class="json">
+                    <code>
+{
+	"exists": true,
+	"amount": 123,
+	"description": "Some fetched text content",
+	"pressReleases": [
+		"Foo",
+		"Bar",
+		"Baz"
+	],
+	"likes": [
+		132,
+		2,
+		87
+	],
+	"links": [
+		"http://www.foo.bar",
+		"http://www.bar.foo",
+		"http://www.baz.bar"
+	],
+	"attributeIsWorking": "yes",
+	"attributeAlignExists": true,
+	"dataTestIsWorking": "working",
+	"collectedIds": [
+		123,
+		456
+	],
+	"collectedClassNames": [
+		"xyz",
+		"xyz"
+	]
+}
+                    </code>
+                </pre>
             </section>
 
             <section id="speedComparisonManual" data-background-video="multimedia/ManualBooking.mov"
                      data-background-size="contain" data-background-video-muted>
-                <span>Duration:</span><span class="timer" data-until="2">2:00:00</span>
             </section>
 
-            <section id="speedComparisonAutomised" data-background-video="multimedia/AutomaticBooking.mov"
+            <section id="speedComparisonAutomated" data-background-video="multimedia/AutomaticBooking.mov"
                      data-background-size="contain" data-background-video-muted>
-                <span>Duration:</span><span class="timer" data-until="1">1:00:00</span>
             </section>
-        </section>
 
-        <section id="outro">
-            outro
-            (outro) I Believe that
+            <section id="performanceIncrease">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>✏️ Variant</th>
+                        <th>🕘 Duration</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>👆 manual</td>
+                        <td>2 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>🤖 automated</td>
+                        <td>&nbsp;1 minute</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+
+            <section id="usecaseCoinmarket">
+                <span>Integration as a lib</span>
+            </section>
+
+            <section id="usecaseCoinmarket">
+                <img src="images/coinmarket-app-result.png">
+            </section>
+
+            <section id="migrationCoinmarketBeforeMigration">
+                <img src="images/coinmarket-before.png">
+            </section>
+            <section id="migrationCoinmarketAfterMigration">
+                <img src="images/coinmarket-after.png">
+            </section>
+
+
+            <section id="caseFahrradDe">
+                <h2>Live Demo</h2>
+                <span>Observe an online store</span>
+            </section>
+
+            <section id="avsb">
+                <blockquote>
+                    "Who's able to write JSON can use fetchbot"
+                </blockquote>
+            </section>
+
+            <section id="contributionsWelcome">
+                <img class="githubPage" src="images/github-page.png">
+                <br>
+                https://github.com/AOEpeople/puppeteer-fetchbot
+            </section>
+
         </section>
 
         <section id="finish">
-            Thank you
+            Thank you for listening
         </section>
 
         <section id="legal-stuff">
             <ul>
-                <li>Icon made by SimpleIcon from www.flaticon.com</li>
+                <li class="small">Icon made by SimpleIcon from www.flaticon.com</li>
             </ul>
         </section>
     </div>
