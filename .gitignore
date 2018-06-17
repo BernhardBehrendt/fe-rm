@@ -1,5 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 *.map
 node_modules
-examples/coinmarketcap-info-cli
 .idea

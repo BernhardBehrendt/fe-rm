@@ -309,7 +309,7 @@ const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
                         <td>Total</td>
                         <td>
                             <hr/>
-                            81 user interactions
+                            min. 56 – max. ca. 90
                         </td>
                     </tr>
 
@@ -350,6 +350,10 @@ const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
                         URL::ACTION::SELECTOR
                     </code>
                 </pre>
+            </section>
+
+            <section id="fetchbotWorkingPrinciple" data-transition="none">
+                <img src="images/FetchBotPrinciple.png" class="fetchbot-working-principle">
             </section>
 
             <section id="basicFetchbotExampleA" class="json" data-transition="none">
@@ -419,27 +423,6 @@ const SELECTOR_GOOGLE_SEARCH_INPUT = 'input';
                 </pre>
             </section>
 
-            <section id="basicFetchbotResult">
-                <pre class="json">
-                    <code>
-{
-    "headlines": [
-        "AOE: Agile Softwareentwicklung | IT & Technologie Dienstleister | AOE",
-        "//SEIBERT/MEDIA, Wiesbaden - Agile Software-Entwicklung, Atlassian ...",
-        "Scholz & Volkmer",
-        "[...]"
-    ],
-    "links": [
-        "https://www.aoe.com/de/home.html",
-        "https://www.seibert-media.net/",
-        "https://www.s-v.de/",
-        "[...]"
-    ]
-}
-                    </code>
-                </pre>
-            </section>
-
             <section id="basicFetchbotUsage">
                 <pre class="shell">
                     <code>
@@ -457,6 +440,27 @@ const FetchBot = require('fetchbot');
 
     console.log(fetchBotData);
 })();
+                    </code>
+                </pre>
+            </section>
+
+            <section id="basicFetchbotResult">
+                <pre class="json">
+                    <code>
+{
+    "headlines": [
+        "AOE: Agile Softwareentwicklung | IT & Technologie Dienstleister | AOE",
+        "//SEIBERT/MEDIA, Wiesbaden - Agile Software-Entwicklung, Atlassian ...",
+        "Scholz & Volkmer",
+        "[...]"
+    ],
+    "links": [
+        "https://www.aoe.com/de/home.html",
+        "https://www.seibert-media.net/",
+        "https://www.s-v.de/",
+        "[...]"
+    ]
+}
                     </code>
                 </pre>
             </section>
@@ -480,7 +484,7 @@ const fetchbot = new FetchBot('', {
             </section>
 
             <section id="dataTypes">
-                <span>Data Types</span>
+                <span>Type casting</span>
                 <ul>
                     <li>Boolean</li>
                     <li>Number</li>
@@ -491,75 +495,154 @@ const fetchbot = new FetchBot('', {
                 </ul>
             </section>
 
-            <section id="dataTypeConversionExample">
-                <pre class="javascript">
-                    <code>
-{
-    "fetch": {
-        "#myFirstSelector AS exists": false,
-        "#mySecondSelector AS amount": 0,
-        "#myThirdSelector AS description": "",
-        "#myFouthSelector AS pressReleases": [],
-        "#myFifthSelector AS likes": null,
-        "#linkTargetResolved as attributeIsWorking": {
-              "attr": "align",
-              "type": ""
-            },
-            "#linkTargetResolved as attributeAlignExists": {
-              "attr": "align",
-              "type": false
-            },
-            "#linkTargetResolved as dataTestIsWorking": {
-              "attr": "data-test",
-              "type": ""
-            },
-            "h2.xyz as collectedIds": {
-              "attr": "id",
-              "type": null
-            },
-            "h2.xyz as collectedClassNames": {
-              "attr": "class",
-              "type": []
-            }
-    }
-}
-                    </code>
-                </pre>
+            <section id="mappingPrinciple">
+                <img src="images/Mapping.png" class="fetchbot-mapping-principle">
             </section>
 
             <section id="dataTypeConversionExampleResult">
+                <img src="images/MappingResult.png" class="fetchbot-mapping-principle">
+            </section>
+
+            <section id="projectUsecase">
                 <pre class="json">
                     <code>
 {
-	"exists": true,
-	"amount": 123,
-	"description": "Some fetched text content",
-	"pressReleases": [
-		"Foo",
-		"Bar",
-		"Baz"
-	],
-	"likes": [
-		132,
-		2,
-		87
-	],
-	"links": [
-		"http://www.foo.bar",
-		"http://www.bar.foo",
-		"http://www.baz.bar"
-	],
-	"attributeIsWorking": "yes",
-	"attributeAlignExists": true,
-	"dataTestIsWorking": "working",
-	"collectedIds": [
-		123,
-		456
-	],
-	"collectedClassNames": [
-		"xyz",
-		"xyz"
-	]
+  "https://testserver.local/PostForms/webshopform.php": {
+    "root": true,
+    "click": "input[type='submit']",
+    "waitFor": [[5000]]
+  },
+
+
+  "https://testserver.local/tarifuebersicht-kabel": {
+    "click": "#sg-133 > div > div.cobra-product-footer > p > button",
+    "waitFor": [[1000]]
+  },
+
+  "https://testserver.local/breitband/produktkonfiguration/": [
+    {
+      "click": "label[data-test-action=\"select-vlz-24\"]",
+      "waitFor": [[1000]]
+    },
+    {
+      "click": "button[data-test-action=\"continue-to-options\"]",
+      "waitFor": [[1000]]
+    },
+
+    {
+      "click": [
+        [
+          "[data-test-action=\"Flat International 1\"]"
+        ],
+        [
+          "[data-test-action=\"Flat International 2\"]"
+        ],
+        [
+          "button[data-test-action=\"continue-to-hw\"]"
+        ]
+      ],
+      "waitFor": [[1000]]
+    },
+
+    {
+      "click": [
+        [
+          "label[data-test-action=\"select-hw-5001\"]"
+        ]
+      ],
+      "waitFor": [[1000]]
+    },
+    {
+      "click":"button[data-test-action=\"submit\"]",
+      "waitFor": [[2000]]
+    }
+  ],
+
+  "https://testserver.local/bestellen/":[
+    {
+      "click": "[data-test-action=\"continue-to-contract-data\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "click":[
+        ["[data-test-action=\"customer--salutation-2-via-label\"]"]
+
+      ],
+      "type":[
+        ["[name=\"customer--first-name\"]","Bernhard"],
+        ["[name=\"customer--last-name\"]","Behrendt"],
+        ["[name=\"customer--birthday.dd\"]","16"],
+        ["[name=\"customer--birthday.mm\"]","10"],
+        ["[name=\"customer--birthday.yyyy\"]","1984"],
+        ["[name=\"customer--landline-phone-number--area-code\"]","069"],
+        ["[name=\"customer--landline-phone-number-cli\"]","4624232424"],
+        ["[name=\"customer--email\"]","bernhard.bezdek@aoe.com"],
+        ["[name=\"customer--email-repeat\"]","bernhard.bezdek@aoe.com"]
+      ]
+    },
+    {
+      "click":"[data-test-action=\"continue-to-line-and-internet-details\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "click":"[data-test=\"products--dsl-order--current-provider\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "click":"[data-test=\"products--dsl-order--current-provider-value-1\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "type":[
+        ["[name=\"current-line-owner--line-phone-no--area-code\"]","06661"],
+        ["[name=\"current-line-owner--line-phone-no--cli\"]","532454"]
+      ],
+      "click":"[data-test-action=\"products--dsl-order--data-storing-option-0-via-label\"]"
+    },
+    {
+      "click":"[data-test-action=\"order--media-wall-outlet-available-0-via-label\"]"
+    },
+    {
+      "click": "[data-test-action=\"order--building-details--building-type-0-via-label\"]",
+      "type": [
+        [
+          "[name=\"products--dsl-order--building-details--floor\"]",
+          "1"
+        ]
+      ]
+    },
+    {
+      "click": "[data-test-action=\"continue-to-payment-details\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "type":[
+        ["[name=\"bank-account--iban\"]","DE92530513960000525042"]
+      ],
+      "click":"[data-test-action=\"sepa-mandate-check-via-label\"]",
+      "waitFor":[[1000]]
+    },
+    {
+      "click":"[data-test-action=\"continue-to-terms-and-conditions\"]",
+      "waitFor":[[1500]]
+    },
+    {
+      "click":"[data-test-action=\"terms-and-conditions-check-via-label\"]"
+    },
+    {
+      "click":"[data-test-action=\"services-privacy-instruction-check\"]"
+    },
+    {
+      "click":"[data-test-action=\"right-of-recission-check\"]"
+    },
+    {
+      "click":"[data-test-action=\"credit-rating-check-via-label\"]"
+    },
+    {
+      "click":"[data-test-action=\"continue-to-order-confirmation\"]",
+      "waitFor":[[9999999]]
+    }
+  ]
 }
                     </code>
                 </pre>
@@ -595,11 +678,11 @@ const fetchbot = new FetchBot('', {
             </section>
 
 
-            <section id="usecaseCoinmarket">
+            <section id="usecaseCoinMarket">
                 <span>Integration as a lib</span>
             </section>
 
-            <section id="usecaseCoinmarket">
+            <section id="usecaseCoinMarketResult">
                 <img src="images/coinmarket-app-result.png">
             </section>
 
@@ -610,11 +693,6 @@ const fetchbot = new FetchBot('', {
                 <img src="images/coinmarket-after.png">
             </section>
 
-
-            <section id="caseFahrradDe">
-                <h2>Live Demo</h2>
-                <span>Observe an online store</span>
-            </section>
 
             <section id="avsb">
                 <blockquote>
